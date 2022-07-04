@@ -1,0 +1,40 @@
+{
+  "name": "@sudorpc/client-local",
+  "version": "1.0.0",
+  "description": "Local client for SudoRPC Client",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SudoRPC/SudoRPC-TypeScript-Client-Local.git"
+  },
+  "keywords": [
+    "RPC"
+  ],
+  "author": "WMXPY",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SudoRPC/SudoRPC-TypeScript-Client-Local/issues"
+  },
+  "homepage": "https://github.com/SudoRPC/SudoRPC-TypeScript-Client-Local#readme",
+  "peerDependencies": {
+    "@sudorpc/core": "*"
+  },
+  "devDependencies": {
+    "@sudoo/triforce": "^3.7.0",
+    "@sudorpc/core": "^1.1.0"
+  },
+  "nyc": {
+    "extension": [
+      ".ts"
+    ],
+    "include": [
+      "src/**/*.ts"
+    ],
+    "instrument": true,
+    "reporter": [
+      "json",
+      "text-summary"
+    ],
+    "report-dir": "coverage",
+    "sourceMap": true
+  }
+}
