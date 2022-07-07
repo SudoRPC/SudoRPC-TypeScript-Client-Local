@@ -1,6 +1,6 @@
 {
   "name": "@sudorpc/client-local",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Local client for SudoRPC Client",
   "repository": {
     "type": "git",
