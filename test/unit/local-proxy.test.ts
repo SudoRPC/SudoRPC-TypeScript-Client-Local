@@ -1,14 +1,14 @@
 /**
  * @author WMXPY
- * @namespace Placeholder
- * @description Placeholder
+ * @namespace ClientLocal
+ * @description Local Proxy
  * @override Unit Test
  */
 
 import { expect } from "chai";
 import * as Chance from "chance";
 
-describe('Placeholder', (): void => {
+describe('Given {SudoRPCLocalProxy} Class', (): void => {
 
     const chance: Chance.Chance = new Chance('placeholder');
 
