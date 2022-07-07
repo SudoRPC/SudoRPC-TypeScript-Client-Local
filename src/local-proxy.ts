@@ -18,42 +18,49 @@ export class SudoRPCLocalProxy<Metadata, Payload, SuccessResult, FailResult>
 
     private readonly _service: SudoRPCService<Metadata, Payload, SuccessResult, FailResult>;
 
-    private _callback: null | (
-        (message: SudoRPCReturn<SuccessResult, FailResult>) => void
-    ) = null;
+    private readonly _listeners: Map<string, (message: SudoRPCReturn<SuccessResult, FailResult>) => void>;
 
     private constructor(
         service: SudoRPCService<Metadata, Payload, SuccessResult, FailResult>,
     ) {
 
         super();
+
         this._service = service;
+
+        this._listeners = new Map();
     }
 
-    public send(call: SudoRPCCall<Metadata, Payload>): void {
+    public send(
+        call: SudoRPCCall<Metadata, Payload>,
+    ): void {
 
         this._service.execute(call).then(
             (
                 message: SudoRPCReturn<SuccessResult, FailResult>,
             ) => {
 
-                if (this._callback) {
-                    this._callback(message);
+                for (const listener of this._listeners.values()) {
+                    listener(message);
                 }
             },
         );
     }
 
     public addListener(
-        _listenerIdentifier: string,
+        listenerIdentifier: string,
         callback: (message: SudoRPCReturn<SuccessResult, FailResult>) => void,
-    ): void {
+    ): this {
 
-        this._callback = callback;
+        this._listeners.set(listenerIdentifier, callback);
+        return this;
     }
 
-    public removeListener(_listenerIdentifier: string): void {
+    public removeListener(
+        listenerIdentifier: string,
+    ): this {
 
-        this._callback = null;
+        this._listeners.delete(listenerIdentifier);
+        return this;
     }
 }
