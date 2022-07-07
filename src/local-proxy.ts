@@ -4,7 +4,7 @@
  * @description Local Proxy
  */
 
-import { SudoRPCCall, SudoRPCCallProxy, SudoRPCReturn, SudoRPCService } from "@sudorpc/core";
+import { SudoRPCCall, SudoRPCCallProxy, SudoRPCCallProxyCallback, SudoRPCReturn, SudoRPCService } from "@sudorpc/core";
 
 export class SudoRPCLocalProxy<Metadata, Payload, SuccessResult, FailResult>
     extends SudoRPCCallProxy<Metadata, Payload, SuccessResult, FailResult> {
@@ -16,9 +16,11 @@ export class SudoRPCLocalProxy<Metadata, Payload, SuccessResult, FailResult>
         return new SudoRPCLocalProxy(service);
     }
 
-    private readonly _service: SudoRPCService<Metadata, Payload, SuccessResult, FailResult>;
+    private readonly _service:
+        SudoRPCService<Metadata, Payload, SuccessResult, FailResult>;
 
-    private readonly _listeners: Map<string, (message: SudoRPCReturn<SuccessResult, FailResult>) => void>;
+    private readonly _listeners:
+        Map<string, SudoRPCCallProxyCallback<SuccessResult, FailResult>>;
 
     private constructor(
         service: SudoRPCService<Metadata, Payload, SuccessResult, FailResult>,
@@ -49,7 +51,7 @@ export class SudoRPCLocalProxy<Metadata, Payload, SuccessResult, FailResult>
 
     public addListener(
         listenerIdentifier: string,
-        callback: (message: SudoRPCReturn<SuccessResult, FailResult>) => void,
+        callback: SudoRPCCallProxyCallback<SuccessResult, FailResult>,
     ): this {
 
         this._listeners.set(listenerIdentifier, callback);
